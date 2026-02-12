@@ -7,21 +7,27 @@ const express = require('express');
 const app = express();
 
 
+// Hjælper med at parse body
+app.use(express.json());
+
+
 // one-liner version
 //const app = require('express')();
 
 
-app.get("/", (req, res) => {
+//printer directory i console
+console.log(__dirname)
 
-res.send({data: "Welcome to the first server!!"})
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/index.html");
 });
 
 
 //Task: create a new route called snowstorm, it should respond with a warning
 
 
-app.get("/snowstorms", (req, res)=>{
-    res.send({warning: "A snowstorm is coming"});
+app.get("/snowstorms", (req, res) => {
+    res.send({ warning: "A snowstorm is coming" });
 });
 
 
@@ -29,8 +35,8 @@ app.get("/snowstorms", (req, res)=>{
 
 // path variable
 app.get("/cars/:carModel/:year", (req, res) => {
-console.log(req.params.carModel);
-    res.send({data: " Your " + req.params.carModel + " is very nice and its from " + req.params.year + "!!!!!!!!"});
+    console.log(req.params.carModel);
+    res.send({ data: " Your " + req.params.carModel + " is very nice and its from " + req.params.year + "!!!!!!!!" });
 });
 
 
@@ -40,8 +46,39 @@ console.log(req.params.carModel);
 // query string/ query parameters ?variable=xxxx
 
 app.get("/bag", (req, res) => {
-    res.send({itemsInBag: req.query });
+    res.send({ itemsInBag: req.query });
 });
+
+
+
+app.post("/dinosaurs", (req, res) => {
+    console.log(req.body)
+    res.send({ data: req.body })
+});
+
+
+//Assignment: Create a POST route with the endpoint energydrinks that adds energydrinks to an array
+
+const energydrinks = [
+    { name: "Monster", taste: 10 },
+    { name: "Redbull", taste: 2 },
+    { name: "Booster", taste: 7 }
+]
+
+app.get("/energydrinks", (req, res) => {
+    res.send({ data: energydrinks });
+});
+
+app.post("/energydrinks", (req, res) => {
+    energydrinks.push(req.body);
+    res.send({ data: req.body });
+});
+
+
+app.get("/xss", (req, res) => {
+    res.sendFile(__dirname + "/xss.html")
+})
+
 
 
 //Vi sætter appen til at lytte på port 8080

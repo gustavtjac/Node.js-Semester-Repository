@@ -1,0 +1,8 @@
+
+# Movies REST API
+
+
+METHOD          ENDPOINT
+
+GET              /movies
+GET              /movies/:id

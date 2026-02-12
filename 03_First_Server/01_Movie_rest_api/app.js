@@ -14,27 +14,37 @@ class Movie {
     }
 }
 
-const movieList = [];
+const movies = [];
 
 for (let i = 1; i < INITIAL_MOVIE_COUNT; i++) {
-    movieList.push(new Movie(i, "Movie " + i, Math.floor((Math.random() * 10)) + 1))
+    movies.push(new Movie(i, "Movie " + i, Math.floor((Math.random() * 10)) + 1))
 }
 
 app.get("/movies", (req, res) => {
-    res.send({ movies: movieList })
+    res.send({ data: movies })
 });
 
 app.get("/movies/:id", (req, res) => {
-    const id = Number(req.params.id);
-    const movie = movieList.find((m) => m.id === id);
+    const providedMovieId = Number(req.params.id);
+    const movie = movies.find((m) => m.id === providedMovieId);
 
     if (!movie) {
-        return res.status(404).send({ error: "Movie not found" });
+        return res.status(404).send({ errorMessage: "Movie with id: " + req.params.id + " not found" });
     }
 
-    res.send({ data: movie });
+    return res.send({ data: movie });
 
 });
+
+
+
+
+
+// Statuskoder:
+// 2xx Sucess
+// 3xx redirection
+// 4xx client side error
+// 5xx server error
 
 app.listen(PORT);
 

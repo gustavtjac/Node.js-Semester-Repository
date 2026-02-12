@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First server</title>
+</head>
+
+<body id="body">
+    <h1>Frontpage</h1>
+    <h3 id="warning">Gustavo er sej</h3>
+
+
+
+
+    <script>
+        // assignment: create a fetch to /enegrydrinks and console.log
+        const body = document.getElementById("body")
+        const warningH3 = document.getElementById("warning")
+
+
+        fetch("/energydrinks")
+            .then((response) => response.json())
+            .then((result) => {
+                result.data.forEach((energyDrink) => {
+                    const energyDrinkListItem = document.createElement("li");
+
+                    energyDrinkListItem.textContent = energyDrink.name + " Taste rating: " + energyDrink.taste;
+
+                    body.appendChild(energyDrinkListItem);
+                });
+            })
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
