@@ -19,6 +19,8 @@ class Movie {
 
 const movies = [];
 
+let currentId = INITIAL_MOVIE_COUNT + 1;
+
 for (let i = 1; i < INITIAL_MOVIE_COUNT; i++) {
     movies.push(new Movie(i, "Movie " + i, Math.floor((Math.random() * 10)) + 1))
 }
@@ -43,18 +45,21 @@ app.post("/movies", (req, res) => {
 
     const postedMovie = req.body
 
+    if(!postedMovie){
+        return res.status(400).send({ errorMessage: "Cannot create a movie without posting a body"});
+    }
+
     if (!postedMovie.name || !postedMovie.rating) {
         return res.status(400).send({ errorMessage: "Cannot create movie with following parameters: name=" + postedMovie.name + ", rating=" + postedMovie.rating });
     }
 
-    const newId = movies.length > 0 ? Math.max(...movies.map(m => m.id)) + 1 : 1;
+    const newId = currentId++;
 
     const createdMovie = new Movie(
         newId,
         postedMovie.name,
         postedMovie.rating
     );
-
 
     movies.push(createdMovie)
 
@@ -87,18 +92,21 @@ app.patch("/movies/:id", (req, res) => {
 
     const providedMovieId = Number(req.params.id);
 
+    const foundMovieIndex = movies.findIndex((movie) => movie.id === providedMovieId);
+
+    if (foundMovieIndex === -1) return res.status(400).send({ errorMessage: "Cannot find movie with id: " + providedMovieId });
+
+    const movieToBeChanged = movies[foundMovieIndex]
+
     const updates = req.body
 
-    const movieWithSameId = movies.find((m) => m.id === providedMovieId);
-
-    if (!movieWithSameId) return res.status(400).send({ errorMessage: "Cannot find movie with id: " + providedMovieId });
-
+    if(!updates) return res.status(400).send({ errorMessage: "Cannot patch movie with no posted body" });
 
     Object.keys(updates).forEach(key => {
         if (key === "id") return;
 
-        if (movieWithSameId.hasOwnProperty(key)) {
-            movieWithSameId[key] = updates[key];
+        if (movieToBeChanged.hasOwnProperty(key)) {
+            movieToBeChanged[key] = updates[key];
         }
     });
 
@@ -113,16 +121,16 @@ app.delete("/movies/:id", (req, res) => {
 
     const providedMovieId = Number(req.params.id);
 
-    const movieWithSameId = movies.find((m) => m.id === providedMovieId);
+    const foundMovieIndex = movies.findIndex((movie) => movie.id === providedMovieId);
 
-    if (!movieWithSameId) {
+    if (foundMovieIndex === -1) {
         return res.status(400).send({ errorMessage: "Movie with id: " + req.params.id + " not found" });
     }
 
-    movies.splice(movies.indexOf(movieWithSameId), 1)
+    const deletedMovie = movies.splice(foundMovieIndex, 1)
 
-    return res.status(200).send({
-        data: movieWithSameId,
+    return res.status(204).send({
+        data: movies[deletedMovie],
         message: "Movie deleted"
     });
 
