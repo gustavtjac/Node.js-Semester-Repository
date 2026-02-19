@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontpage</title>
+     <!-- 3. link stylesheet-->
+    <link rel="stylesheet" href="./frontpage.css">
+    <style>
+        .frontpage-sub-title{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. inline Css-->
+    <h1 style="color: aquamarine;">Welcome to my first express.js site</h1>
+   <!-- 2. style tag in HTML head-->
+    <h3 class="frontpage-sub-title">I hope you enjoy it</h3>
+    
+
+    <h2 id="guest-book-counter">0</h2>
+    <button onclick="incrementCounter()" id="guest-book-btn">Click to count</button>
+
+
+
+    <script>
+
+        const guestBookCounter = document.getElementById("guest-book-counter")
+        const guestBookbtn = document.getElementById("guest-book-btn")
+
+        let guestBookCounterValue = 0;
+
+        function incrementCounter(){
+            guestBookCounter.textContent = ++guestBookCounterValue;
+        }
+
+    
+
+
+    </script>
+    <!-- <script src="./frontpage.js"></script> -->
+</body>
+</html>

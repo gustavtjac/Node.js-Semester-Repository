@@ -49,7 +49,20 @@ app.get("/bag", (req, res) => {
     res.send({ itemsInBag: req.query });
 });
 
+app.get("/proxy", (req, res) => {
+ /* 
+ Create a proxy to https://www.google.com/
+ You have alle the knowledge you need to solve this
+ */
+    const googleResponse = fetch("https://www.google.com/")
+        .then(response => response.text())
+        .then(result => {
+           
+            return res.status(200).send(result);
+            
+        });
 
+});
 
 app.post("/dinosaurs", (req, res) => {
     console.log(req.body)
