@@ -78,12 +78,10 @@
 
         function getRandomFutureDate() {
             const now = new Date();
+            const maxOffset = 50 * 365.25 * 24 * 60 * 60 * 1000;
 
-            // 60 years in milliseconds
-            const maxOffset = 5 * 365 * 24 * 60 * 60 * 1000;
-
-            // Random number between 0 and maxOffset
-            const randomOffset = Math.random() * maxOffset;
+            // Squaring the random number (0.1 becomes 0.01) 
+            const randomOffset = Math.pow(Math.random(), 4) * maxOffset;
 
             return new Date(now.getTime() + randomOffset);
         }
