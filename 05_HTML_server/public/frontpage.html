@@ -1,45 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frontpage</title>
-     <!-- 3. link stylesheet-->
+    <!-- 3. link stylesheet-->
     <link rel="stylesheet" href="./frontpage.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=New+Rocker&display=swap" rel="stylesheet">
     <style>
-        .frontpage-sub-title{
-            color: red;
+        body {
+            font-family: "New Rocker", system-ui;
+            font-weight: 400;
+            font-style: normal;
+            margin: 0;
+            padding: 0;
+            background-color: red;
+        }
+
+        #frontpage-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #death-img {
+            height: 24vh;
+            width: 12vw;
+            transition: transform 1000000000s ease;
+        }
+
+        #death-img:hover {
+
+            transform: scale(2);
+            transform: rotate(999999999999deg);
+        }
+
+        #fire-animation {
+            position: absolute;
+            bottom: 0;
+            width: 100vw;
+            height: 80vh;
+        }
+
+        #death-counter {
+            font-size: 3rem;
         }
     </style>
 </head>
+
 <body>
+    <div id="frontpage-container">
+        <!-- 1. inline Css-->
+        <h1 class="frontpage-title">Death counter 💀</h1>
+        <!-- 2. style tag in HTML head-->
+        <h3 class="frontpage-sub-title">Find out when your time runs out (Click me) 🔱👹</h3>
+        <img id="death-img" src="death.png" alt="">
+    </div>
 
-    <!-- 1. inline Css-->
-    <h1 style="color: aquamarine;">Welcome to my first express.js site</h1>
-   <!-- 2. style tag in HTML head-->
-    <h3 class="frontpage-sub-title">I hope you enjoy it</h3>
-    
-
-    <h2 id="guest-book-counter">0</h2>
-    <button onclick="incrementCounter()" id="guest-book-btn">Click to count</button>
 
 
 
     <script>
+        const deathbtn = document.getElementById("death-img")
+        const frontpageContainer = document.getElementById("frontpage-container")
+        const vineBoom = new Audio("vine-boom.mp3")
+        const fireSound = new Audio("fire-burning.mp3")
 
-        const guestBookCounter = document.getElementById("guest-book-counter")
-        const guestBookbtn = document.getElementById("guest-book-btn")
+        deathbtn.addEventListener("click", function () {
+            startDeathCountdown(getRandomFutureDate())
+            vineBoom.currentTime = 0;
+            vineBoom.play();
+        })
 
-        let guestBookCounterValue = 0;
+        function getRandomFutureDate() {
+            const now = new Date();
 
-        function incrementCounter(){
-            guestBookCounter.textContent = ++guestBookCounterValue;
+            // 60 years in milliseconds
+            const maxOffset = 60 * 365 * 24 * 60 * 60 * 1000;
+
+            // Random number between 0 and maxOffset
+            const randomOffset = Math.random() * maxOffset;
+
+            return new Date(now.getTime() + randomOffset);
         }
 
-    
+
+        function startDeathCountdown(deathDate) {
+            deathbtn.style.display = "none";
+            const deathCounter = document.createElement("h4")
+            deathCounter.id = "death-counter"
+            frontpageContainer.appendChild(deathCounter)
+
+            const fireAnimation = document.createElement("img")
+            fireAnimation.src = "fire.gif"
+            fireAnimation.id = "fire-animation"
+            frontpageContainer.appendChild(fireAnimation)
+
+            fireSound.loop = true;
+            fireSound.play()
+
+
+            function updateCountdown() {
+
+
+                const now = new Date();
+                const difference = deathDate - now;
+
+                if (difference <= 0) {
+                    deathCounter.textContent = "Time's up 💀";
+                    clearInterval(interval);
+                    return;
+                }
+                const seconds = Math.floor(difference / 1000) % 60;
+                const minutes = Math.floor(difference / (1000 * 60)) % 60;
+                const hours = Math.floor(difference / (1000 * 60 * 60)) % 24;
+
+                const totalDays = Math.floor(difference / (1000 * 60 * 60 * 24));
+
+                const years = Math.floor(totalDays / 365.25);
+                const days = Math.floor(totalDays % 365.25);
+
+                deathCounter.textContent = `${years}y ${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            }
+            updateCountdown();
+            const interval = setInterval(updateCountdown, 1000);
+
+        }
+
+
+
+
+
 
 
     </script>
     <!-- <script src="./frontpage.js"></script> -->
 </body>
+
 </html>
