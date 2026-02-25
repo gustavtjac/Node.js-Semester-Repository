@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frontpage</title>
+    <title>When will i die!??!!?</title>
     <!-- 3. link stylesheet-->
     <link rel="stylesheet" href="./frontpage.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +57,7 @@
         <!-- 1. inline Css-->
         <h1 class="frontpage-title">Death counter 💀</h1>
         <!-- 2. style tag in HTML head-->
-        <h3 class="frontpage-sub-title">Find out when your time runs out (Click me) 🔱👹</h3>
+        <h3 id="frontpage-sub-title" class="frontpage-sub-title">Find out when your time runs out (Click me) 🔱👹</h3>
         <img id="death-img" src="death.png" alt="">
     </div>
 
@@ -69,6 +69,13 @@
         const frontpageContainer = document.getElementById("frontpage-container")
         const vineBoom = new Audio("vine-boom.mp3")
         const fireSound = new Audio("fire-burning.mp3")
+        const frontpageSubTitle = document.getElementById("frontpage-sub-title")
+        const localStorageDeathDate = localStorage.getItem("deathDate")
+
+        if (localStorageDeathDate) {
+            startDeathCountdown(new Date(localStorageDeathDate))
+        }
+
 
         deathbtn.addEventListener("click", function () {
             startDeathCountdown(getRandomFutureDate())
@@ -98,8 +105,13 @@
             fireAnimation.id = "fire-animation"
             frontpageContainer.appendChild(fireAnimation)
 
+            frontpageSubTitle.textContent = "Time's ticking 😈⏳"
+
             fireSound.loop = true;
             fireSound.play()
+
+
+            localStorage.setItem("deathDate", deathDate)
 
 
             function updateCountdown() {
@@ -123,7 +135,6 @@
                 const days = Math.floor(totalDays % 365.25);
 
                 deathCounter.textContent = `${years}y ${days}d ${hours}h ${minutes}m ${seconds}s`;
-
             }
             updateCountdown();
             const interval = setInterval(updateCountdown, 1000);
