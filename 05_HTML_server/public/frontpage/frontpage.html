@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>When will i die!??!!?</title>
     <!-- 3. link stylesheet-->
-    <link rel="stylesheet" href="./frontpage.css">
+    <link rel="stylesheet" href="./frontpage/frontpage.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=New+Rocker&display=swap" rel="stylesheet">
@@ -58,7 +58,7 @@
         <h1 class="frontpage-title">Death counter 💀</h1>
         <!-- 2. style tag in HTML head-->
         <h3 id="frontpage-sub-title" class="frontpage-sub-title">Find out when your time runs out (Click me) 🔱👹</h3>
-        <img id="death-img" src="death.png" alt="">
+        <img id="death-img" src="frontpage/death.png" alt="">
     </div>
 
 
@@ -67,8 +67,8 @@
     <script>
         const deathbtn = document.getElementById("death-img")
         const frontpageContainer = document.getElementById("frontpage-container")
-        const vineBoom = new Audio("vine-boom.mp3")
-        const fireSound = new Audio("fire-burning.mp3")
+        const vineBoom = new Audio("frontpage/vine-boom.mp3")
+        const fireSound = new Audio("frontpage/fire-burning.mp3")
         const frontpageSubTitle = document.getElementById("frontpage-sub-title")
         const localStorageDeathDate = localStorage.getItem("deathDate")
 
@@ -101,7 +101,7 @@
             frontpageContainer.appendChild(deathCounter)
 
             const fireAnimation = document.createElement("img")
-            fireAnimation.src = "fire.gif"
+            fireAnimation.src = "frontpage/fire.gif"
             fireAnimation.id = "fire-animation"
             frontpageContainer.appendChild(fireAnimation)
 
@@ -141,14 +141,8 @@
 
         }
 
-
-
-
-
-
-
     </script>
-    <!-- <script src="./frontpage.js"></script> -->
+
 </body>
 
 </html>
