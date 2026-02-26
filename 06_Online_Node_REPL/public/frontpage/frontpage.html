@@ -8,5 +8,29 @@
 <body>
     <h1>Online Node.js REPL</h1>
     
+    <h2>
+        ...
+
+    </h2>
+
+
+    <script>
+        fetch('/api/repl',{
+            method : "POST",
+            body : JSON.stringify({
+                replCode: 'console.log'
+            }),
+            headers : {
+                "Content-Type": "application/json"
+
+            }
+
+        })
+        .then((response) => response.json())
+        .then((result) => {
+            console.log(result)
+        })
+
+    </script>
 </body>
 </html>
