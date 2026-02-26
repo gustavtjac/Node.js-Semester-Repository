@@ -1,0 +1,19 @@
+{
+  "name": "06_online_node_repl",
+  "version": "0.0.1",
+  "description": "ONLINE REPL TOOL",
+  "license": "ISC",
+  "author": "Gustavo Rock",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ostemad",
+    "kyssemysse"
+  ],
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
