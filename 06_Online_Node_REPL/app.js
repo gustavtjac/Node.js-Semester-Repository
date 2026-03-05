@@ -19,15 +19,30 @@ app.get('/about', (req, res) => {
 
 // ========================== API ================================== 
 
+import { executeCodeInSandbox, getOrCreateSandboxContext } from './util/replUtil.js';
+
+
 app.post('/api/repl', (req, res) => {
-    let replCode = req.body?.replCode;
+
+    if(!req.body){
+        return res.status(400).send({errorMessage: 'Missing a JSON body'})
+    }
+
+    const { replCode, sandboxId } = req.body
+
 
     if(!replCode) return res.status(400).send({errorMessage: 'Missing the key replCode in the JSON body'})
 
-    replCode = replCode.replace('console.log("', '').replace('")', '');
 
-    res.send({ data: replCode});
+    const sandbox = getOrCreateSandboxContext(sandboxId)
 
+    const { error, success, output, result } = executeCodeInSandbox(sandbox, replCode)
+
+    if(error){
+        return res.status(500).send({ errorMessage: 'Error execuing the provided code' })
+    }
+
+    res.send({ data: { success, output, result } });
 });
 
 
