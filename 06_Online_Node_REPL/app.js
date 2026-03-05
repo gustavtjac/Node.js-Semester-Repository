@@ -30,7 +30,10 @@ app.post('/api/repl', (req, res) => {
 
 
 // ========================== Listen ================================== 
+console.log(process.env.PORT)
 
-app.listen(8080, () => {
-    console.log('Server is runnning on port ' + 8080)
-})
+const PORT = process.env.PORT  || 8080;
+
+const server = app.listen(PORT, () => {
+    console.log('Server is runnning on port ' + server.address().port)
+});
