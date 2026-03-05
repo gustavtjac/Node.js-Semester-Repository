@@ -1,6 +1,8 @@
 import express from 'express';
 const app = express();
+
 app.use(express.static('./public'))
+
 app.use(express.json())
 
 import path from 'path';
@@ -8,6 +10,10 @@ import path from 'path';
 // ========================== pages ==================================
 app.get('/', (req, res) => {
     res.sendFile(path.resolve('public/frontpage/frontpage.html'))
+});
+
+app.get('/about', (req, res) => {
+    res.sendFile(path.resolve('public/about/about.html'))
 });
 
 
@@ -18,7 +24,7 @@ app.post('/api/repl', (req, res) => {
 
     if(!replCode) return res.status(400).send({errorMessage: 'Missing the key replCode in the JSON body'})
 
-    replCode = replCode.replace('console.log(','').replace(')')
+    replCode = replCode.replace('console.log("', '').replace('")', '');
 
     res.send({ data: replCode});
 
