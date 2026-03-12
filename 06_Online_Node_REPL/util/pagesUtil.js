@@ -4,6 +4,9 @@ import { readPage, constructPage } from './templateEngine.js'
 
 const frontpage = readPage('./public/pages/frontpage/frontpage.html');
 
+const contact = readPage('./public/pages/contact/contact.html')
+
+
 const about = readPage('./public/pages/about/about.html');
 
 export const frontpagePage = constructPage(frontpage, {
@@ -14,3 +17,5 @@ export const aboutPage = constructPage(about,{
     documentTitle: 'Online Node.js REPL',
 
 });
+
+export const contactPage = constructPage(contact)
