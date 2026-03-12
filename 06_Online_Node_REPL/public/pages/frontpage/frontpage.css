@@ -1,0 +1,35 @@
+#repl-code-output {
+    padding: 1.5vw;
+   
+    font-size: 22px;
+    font-family: monospace;
+    height: 60vh;
+    background-color: blue;
+    overflow-y: auto;
+}
+
+#repl-input {
+    margin: 0;
+    width: 50vw;
+    background-color: aqua;
+}
+
+.repl-code-prompt {
+    font-weight: bolder;
+    padding: 0;
+}
+
+.repl-code-error {
+    font-weight: bolder;
+    color: red;
+}
+
+.repl-code-result {
+    color: lightgreen;
+
+}
+
+.repl-code-output {
+    color: rgb(73, 235, 73);
+    
+}

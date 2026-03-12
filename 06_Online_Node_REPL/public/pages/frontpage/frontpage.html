@@ -4,12 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Node.js REPLL</title>
+
+    <link rel="icon" type="image/png" href="/assets/images/nodejs-logo.png">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-    <link rel="stylesheet" href="/frontpage/frontpage.css">
+    <link rel="stylesheet" href="/pages/frontpage/frontpage.css">
     <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/default.min.css">
 
+    <title>Online Node.js REPLL</title>
 </head>
 
 <body>
@@ -19,11 +22,14 @@
             <a href="/about">About</a>
     </nav>
 
-    <h1>Online Node.js REPL</h1>
+   
     <main>
-        <h2>
-        ...
-        </h2>
+        <h1>Online Node.js REPL</h1>
+        <div id="repl-code-output">
+
+        </div>
+        <input id="repl-input" type="text">
+       
     </main>
     
 
@@ -33,8 +39,10 @@
     </footer>
 
 
-    <script src="/frontpage/repl.js"></script>
+    
     <script src="/assets/js/footer.js"></script>
+    <script src="/pages/frontpage/repl.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
 </body>
 
 </html>

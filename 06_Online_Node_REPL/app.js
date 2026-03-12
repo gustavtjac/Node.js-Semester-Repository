@@ -1,19 +1,19 @@
 import express from 'express';
 const app = express();
 
-app.use(express.static('./public'))
+app.use(express.static('./public'));
 
-app.use(express.json())
+app.use(express.json());
 
 import path from 'path';
 
 // ========================== pages ==================================
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve('public/frontpage/frontpage.html'))
+    res.sendFile(path.resolve('public/pages/frontpage/frontpage.html'))
 });
 
 app.get('/about', (req, res) => {
-    res.sendFile(path.resolve('public/about/about.html'))
+    res.sendFile(path.resolve('public/pages/about/about.html'))
 });
 
 
@@ -39,7 +39,10 @@ app.post('/api/repl', (req, res) => {
     const { error, success, output, result } = executeCodeInSandbox(sandbox, replCode)
 
     if(error){
-        return res.status(500).send({ errorMessage: 'Error execuing the provided code' })
+        return res.status(500).send({ 
+            data : { error },
+            errorMessage: 'Error execuing the provided code'
+        });
     }
 
     res.send({ data: { success, output, result } });
