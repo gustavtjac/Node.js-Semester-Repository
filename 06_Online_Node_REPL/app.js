@@ -5,48 +5,28 @@ app.use(express.static('./public'));
 
 app.use(express.json());
 
-import path from 'path';
+app.use(replRouter)
+
+app.use(pagesRouter)
+
+import replRouter from './routers/replRouter.js'
+
+import pagesRouter from './routers/pagesRouter.js'
+
+
 
 // ========================== pages ==================================
-app.get('/', (req, res) => {
-    res.sendFile(path.resolve('public/pages/frontpage/frontpage.html'))
-});
 
-app.get('/about', (req, res) => {
-    res.sendFile(path.resolve('public/pages/about/about.html'))
-});
+
+
+;
 
 
 // ========================== API ================================== 
 
-import { executeCodeInSandbox, getOrCreateSandboxContext } from './util/replUtil.js';
 
 
-app.post('/api/repl', (req, res) => {
 
-    if(!req.body){
-        return res.status(400).send({errorMessage: 'Missing a JSON body'})
-    }
-
-    const { replCode, sandboxId } = req.body
-
-
-    if(!replCode) return res.status(400).send({errorMessage: 'Missing the key replCode in the JSON body'})
-
-
-    const sandbox = getOrCreateSandboxContext(sandboxId)
-
-    const { error, success, output, result } = executeCodeInSandbox(sandbox, replCode)
-
-    if(error){
-        return res.status(500).send({ 
-            data : { error },
-            errorMessage: 'Error execuing the provided code'
-        });
-    }
-
-    res.send({ data: { success, output, result } });
-});
 
 
 
