@@ -3,6 +3,14 @@ const app = express();
 app.use(express.static('/public'));
 app.use(express.json())
 
+import session from 'express-session'
+app.use(session({
+  secret: 'keyboard cat', // Secret should be path variable
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
+
 import { rateLimit } from 'express-rate-limit'
 const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutter
@@ -28,12 +36,16 @@ import helmet from 'helmet'
 app.use(helmet())
 
 
+
 import middlewareRouter from './routers/middlewareRouter.js'
 app.use(middlewareRouter)
 
 
 import authRouter from './routers/authRouter.js'
 app.use(authRouter)
+
+import sessionRouter from './routers/sessionRouter.js'
+app.use(sessionRouter)
 
 
 

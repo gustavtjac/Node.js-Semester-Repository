@@ -3,6 +3,10 @@ import { Router } from 'express'
 const router = Router();
 
 
+/* Authtentication: Knowing that the use ris who they say they are
+Authorizatoi: Knowing if the user has priveligess */
+
+
 
 function isAdmin(req, res, next){
     //simulerer at hente fra DB

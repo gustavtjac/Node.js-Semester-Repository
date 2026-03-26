@@ -11,9 +11,11 @@
     "start-prod": "cross-env PORT=80 NODE_ENV=PROD node app.js"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cross-env": "^10.1.0",
     "express": "^5.2.1",
     "express-rate-limit": "^8.3.1",
+    "express-session": "^1.19.0",
     "helmet": "^8.1.0"
   }
 }
