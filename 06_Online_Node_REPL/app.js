@@ -5,15 +5,21 @@ app.use(express.static('./public'));
 
 app.use(express.json());
 
-app.use(replRouter)
+app.use(express.urlencoded())
 
-app.use(pagesRouter)
+
 
 import replRouter from './routers/replRouter.js'
 
 import pagesRouter from './routers/pagesRouter.js'
 
+import contactRouter from './routers/contactRouter.js'
 
+app.use(replRouter)
+
+app.use(pagesRouter)
+
+app.use(contactRouter)  
 
 // ========================== pages ==================================
 
