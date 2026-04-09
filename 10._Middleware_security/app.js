@@ -1,3 +1,7 @@
+import dotenv from 'dotenv/config'
+
+console.log(process.env.SESSION_SECRET)
+
 import express from 'express'
 const app = express();
 app.use(express.static('/public'));
@@ -5,7 +9,7 @@ app.use(express.json())
 
 import session from 'express-session'
 app.use(session({
-  secret: 'keyboard cat', // Secret should be path variable
+  secret: process.env.SESSION_SECRET, // Secret should be path variable
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false }
