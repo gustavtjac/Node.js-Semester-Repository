@@ -1,12 +1,11 @@
 <script>
+    import { fetchGet, fetchPost } from "../../util/fetchUtil.js";
     import { onMount } from "svelte";
 
     let restaurants;
 
-    onMount(() => {
-        fetch("http://localhost:8080/api/restaurants")
-            .then((response) => response.json())
-            .then((result) => (restaurants = result.data));
+    onMount(async () => {
+       restaurants = (await fetchGet('/api/restaurants')).data
     });
 </script>
 

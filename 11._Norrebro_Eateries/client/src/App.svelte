@@ -12,6 +12,9 @@
   </nav>
 
   <div>
+    <Route path='/'> 
+    <h2>Nørrebrons eateries</h2>
+    </Route>
     <Route path='/restaurants'><Restaurants/></Route>
      <Route path='/visitors'><Visitors/></Route>
      <Route path='/about'>
