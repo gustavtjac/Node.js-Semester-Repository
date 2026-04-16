@@ -7,8 +7,8 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "database:create": "cd DB && node database.js --delete",
-    "database:update": "cd DB && node database.js"
+    "database:create": "node DB/database.js --delete",
+    "database:update": "node DB/database.js"
   },
   "dependencies": {
     "express": "^5.2.1",
