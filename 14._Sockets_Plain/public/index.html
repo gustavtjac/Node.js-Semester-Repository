@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="icon.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colors</title>
+</head>
+<body>
+    <input id="color-picker" type="color">
+    <button id="submit" onclick="submitColor()">Submit color</button>
+
+    <!-- Task - Print the color when a use submits it-->
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+const socket = io();
+
+const colorPicker = document.getElementById("color-picker");
+
+console.log(socket);
+
+function submitColor() {
+    const colorValue = colorPicker.value;
+
+    //Emits to the socket itself but not the others
+    socket.emit("client-sends-color", { data: colorValue});
+}
+
+
+
+socket.on("server-sends-color", (data) => {
+
+    document.body.style.backgroundColor = data.data;
+
+});
+
+</script>
+</html>
